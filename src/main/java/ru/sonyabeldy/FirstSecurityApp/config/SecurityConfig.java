@@ -37,7 +37,10 @@ public class SecurityConfig {
                 .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/hello", true)
                 .failureUrl("/auth/login?error")
-                .permitAll();
+                .permitAll()
+                .and()
+                .logout().logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login");
 
         return http.build();
     }
