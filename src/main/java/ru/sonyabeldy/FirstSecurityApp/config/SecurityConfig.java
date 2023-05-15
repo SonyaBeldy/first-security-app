@@ -32,7 +32,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() //отключаем защиту от межсайтовой подделке запросов, SC даст отправить запрос без csrf токкена
+        http
                 .authorizeHttpRequests().requestMatchers("/auth/login", "auth/registration", "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
