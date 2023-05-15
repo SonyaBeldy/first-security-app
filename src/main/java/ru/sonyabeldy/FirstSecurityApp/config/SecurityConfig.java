@@ -33,8 +33,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests().requestMatchers("/auth/login", "auth/registration", "/error").permitAll()
-                .anyRequest().authenticated()
+                .authorizeHttpRequests()
+                .requestMatchers("/admin").hasRole("ADMIN")
+
+                .requestMatchers("/auth/login", "auth/registration", "/error").permitAll() //любой пользователь, дане не аутентифицированный, сможет зайти на эти странички
+//                .anyRequest().authenticated()
+                .anyRequest().hasAnyRole("USER", "ADMIN") //для всех остальных страничек даем достум юзеру и админу
+
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
